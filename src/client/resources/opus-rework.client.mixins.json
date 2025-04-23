@@ -1,0 +1,11 @@
+{
+  "required": true,
+  "package": "me.evo.mixin.client",
+  "compatibilityLevel": "JAVA_21",
+  "client": [
+    "SoundLoaderMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
+	}
+}
