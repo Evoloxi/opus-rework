@@ -1,9 +1,6 @@
 package me.evo.mixin.client;
 
-import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
-import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 import com.llamalad7.mixinextras.sugar.Local;
-import kotlin.text.Charsets;
 import me.evo.OpusAudioStream;
 import net.minecraft.client.sound.NonRepeatingAudioStream;
 import net.minecraft.client.sound.OggAudioStream;
@@ -13,14 +10,10 @@ import net.minecraft.util.Identifier;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.Redirect;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
-import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
 
 import java.io.*;
 import java.nio.ByteBuffer;
-import java.util.Objects;
-import java.util.concurrent.CompletableFuture;
 
 @Mixin(SoundLoader.class)
 public class SoundLoaderMixin {
