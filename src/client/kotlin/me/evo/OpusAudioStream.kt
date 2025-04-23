@@ -120,12 +120,12 @@ class OpusAudioStream(val inputStream: InputStream) : NonRepeatingAudioStream {
 
     override fun read(size: Int): ByteBuffer? {
         val output = OutputConcat(16384)
-        val decoded: ShortArray? = decodeNextBatch(1)
+        val decoded: ShortArray? = decodeNextBatch(size)
 
-        if (decoded == null || decoded.isEmpty()) {
-            return null
+        if (decoded != null && decoded.isNotEmpty()) {
+            output.accept(decoded)
         }
-        output.accept(decoded)
+
         return output.getBuffer()
     }
 
