@@ -19,19 +19,9 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.concurrent.CompletableFuture;
 
 @Mixin(SoundLoader.class)
 public class SoundLoaderMixin {
-
-    @Inject(method = "loadStreamed", at = @At("RETURN"))
-    private void loaderr(Identifier id, boolean repeatInstantly, CallbackInfoReturnable<CompletableFuture<AudioStream>> cir) {
-        cir.getReturnValue().whenComplete((staticSound, throwable) -> {
-            if (throwable != null) {
-                throwable.printStackTrace();
-            }
-        });
-    }
 
     @ModifyExpressionValue(
             method = "method_19747",
@@ -60,8 +50,8 @@ public class SoundLoaderMixin {
                     target = "(Ljava/io/InputStream;)Lnet/minecraft/client/sound/OggAudioStream;"
             )
     )
-    private OggAudioStream skipCall(InputStream stream, Operation<OggAudioStream> original) {
-        return null;
+    private OggAudioStream skipCall(InputStream stream, Operation<OggAudioStream> original, @Share("opus") LocalBooleanRef opus) {
+        return opus.get() ? null : original.call(stream);
     }
 
     @ModifyVariable(
